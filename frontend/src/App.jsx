@@ -1,14 +1,12 @@
+import React from 'react';
+import GamePage from './pages/GamePage';
 
+const App = () => {
+    return (
+        <div>
+            <GamePage />
+        </div>
+    );
+};
 
-function App() {
-  
-
-  return (
-    <>
-      <h1>Poras Full stack dev</h1>
-      
-    </>
-  )
-}
-
-export default App
+export default App;
