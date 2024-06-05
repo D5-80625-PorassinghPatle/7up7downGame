@@ -1,0 +1,11 @@
+{
+  "name": "7up7down",
+  "version": "1.0.0",
+  "description": "This is Simple 7Up&7DownGame",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
