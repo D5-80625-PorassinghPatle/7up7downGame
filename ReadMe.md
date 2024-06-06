@@ -4,6 +4,16 @@
 
 [Live Demo](https://sevenup7downgame.onrender.com)
 
+## Images
+*Add images of the project here.*
+IMAGE:1 ![alt text](image.png)
+
+
+
+
+
+
+
 Welcome to the Casino Dice Game! This is a simple web-based game where players can roll two dice and place bets on different outcomes. This README provides an overview of the project structure, features of the game, styling details, additional information, and how to replicate the project.
 
 ## General Information
