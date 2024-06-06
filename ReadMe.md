@@ -5,7 +5,7 @@
 [Live Demo](https://sevenup7downgame.onrender.com)
 
 ## Images
-*Add images of the project here.*
+
 IMAGE:1 ![alt text](image.png)
 
 
