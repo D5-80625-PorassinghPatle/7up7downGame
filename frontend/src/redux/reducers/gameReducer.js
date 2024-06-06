@@ -1,6 +1,6 @@
 // redux/reducers/gameReducer.js
 const initialState = {
-    points: 5000,
+    points: 1000,
     betAmount: 100,
     betType: '7 up',
     dice1: null,
