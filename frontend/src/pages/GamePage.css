@@ -1,24 +1,64 @@
-.game-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Adjust as needed */
+/* styles.css */
+@keyframes disappear {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }
 
-.game-content {
-    background-color: #f0f0f0;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
+.disappear {
+    animation: disappear 2s forwards;
 }
 
-.game-container1 {
+.container {
     display: flex;
+    padding-left: 5px;
+    padding-right: 5px;
+
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background-image: url('https://i.pinimg.com/474x/6e/05/f0/6e05f04fd5d86db1d6fb841b4c5833a8.jpg'); /* Adjust the path */
+    height: 100vh;
+    background-color: #f8f9fa;
+    background-image: url(https://img.freepik.com/free-photo/futuristic-casino-architecture_23-2150926657.jpg?t=st=1717660897~exp=1717664497~hmac=bf761aca81c9f80321340c33d90f4178c9a192e1fc5bfb9f04e21be0dea150cc&w=1060);
     background-size: cover;
     background-position: center;
+}
+
+.gameBox {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.diceContainer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.resultContainer {
+    min-height: 40px; /* Adjust based on the height of your result text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.casinoHeading {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 48px;
+    color: gold;
+    text-shadow: 2px 2px 4px #000000;
+    margin-bottom: 20px;
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
 }

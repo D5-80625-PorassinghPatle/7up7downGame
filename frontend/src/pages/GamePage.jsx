@@ -1,74 +1,78 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import BetOptions from '../components/BetOptions';
 import BetAmount from '../components/BetAmount';
-import DiceResult from '../components/DiceResult';
+import Dice from '../components/Dice';
 import PlayerPoints from '../components/PlayerPoints';
 import RollDiceButton from '../components/RollDiceButton';
 import { rollDice, calculateResult, updatePoints } from '../services/api';
 import { setBetAmount, setBetType, setDiceResult, setResult, setPoints, setLoading } from '../redux/reducers/gameReducer';
+import './GamePage.css';
 
 const GamePage = () => {
     const dispatch = useDispatch();
     const { points, betAmount, betType, dice1, dice2, result, loading } = useSelector(state => state.game);
+    const [rolling, setRolling] = useState(false);
+    const [disappear, setDisappear] = useState(false);
+    const [insufficientPoints, setInsufficientPoints] = useState(false);
 
     const handleRoll = async () => {
+        if (points < betAmount) {
+            setInsufficientPoints(true);
+            return;
+        }
+
         dispatch(setLoading(true));
+        setRolling(true);
+        setDisappear(true);
+
+        setTimeout(() => setDisappear(false), 500);
+
         const diceData = await rollDice();
         dispatch(setDiceResult(diceData));
 
-        const resultData = await calculateResult({
-            betAmount,
-            betType,
-            dice1: diceData.dice1,
-            dice2: diceData.dice2,
-        });
+        setTimeout(async () => {
+            const resultData = await calculateResult({
+                betAmount,
+                betType,
+                dice1: diceData.dice1,
+                dice2: diceData.dice2,
+            });
 
-        dispatch(setResult(resultData.result));
+            dispatch(setResult(resultData.result));
 
-        const pointsData = await updatePoints({
-            currentPoints: points,
-            pointsChange: resultData.pointsChange,
-        });
+            const pointsData = await updatePoints({
+                currentPoints: points,
+                pointsChange: resultData.pointsChange,
+            });
 
-        dispatch(setPoints(pointsData.newPoints));
-        dispatch(setLoading(false));
+            dispatch(setPoints(pointsData.newPoints));
+            dispatch(setLoading(false));
+        }, 3000);
     };
 
     return (
-        <div style={styles.container}>
-            <div style={styles.gameBox}>
+        <div className="container">
+            <h1 className="casinoHeading">7 HEAVEN</h1>
+            <div className="gameBox">
                 <PlayerPoints points={points} />
                 <BetOptions betType={betType} setBetType={(value) => dispatch(setBetType(value))} />
-                <BetAmount betAmount={betAmount} setBetAmount={(value) => dispatch(setBetAmount(value))} />
-                <RollDiceButton onRoll={handleRoll} />
-                <DiceResult dice1={dice1} dice2={dice2} loading={loading} />
-                {result && <h2>{result === 'win' ? 'You Win!' : 'You Lose!'}</h2>}
+                <BetAmount betAmount={betAmount} setBetAmount={(value) => dispatch(setBetAmount(value))} points={points} />
+                <RollDiceButton onRoll={handleRoll} disabled={insufficientPoints || loading} />
+                <div className="diceContainer">
+                    <Dice diceValue={dice1} rolling={rolling} setRolling={setRolling} />
+                    <Dice diceValue={dice2} rolling={rolling} setRolling={setRolling} />
+                </div>
+                <div className="resultContainer">
+                    {result && <h2 className={disappear ? 'disappear' : ''}>{result === 'win' ? 'You Win!' : 'You Lose!'}</h2>}
+                </div>
+                <div>
+                {insufficientPoints && <p className="insufficientPoints">Please add more points to place this bet.</p>}
+
+                </div>
             </div>
         </div>
     );
-};
-
-const styles = {
-    container: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        backgroundColor: '#f8f9fa',
-        backgroundImage: 'url(https://i.pinimg.com/564x/8f/d4/a4/8fd4a4d12c6f10567f8422b1c964ee13.jpg)', // Change this to the path of your background image
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-    },
-    gameBox: {
-        padding: '20px',
-        borderRadius: '10px',
-        backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background
-        boxShadow: '0px 0px 10px rgba(0,0,0,0.1)',
-        textAlign: 'center',
-        maxWidth: '400px',
-        width: '100%',
-    },
 };
 
 export default GamePage;
