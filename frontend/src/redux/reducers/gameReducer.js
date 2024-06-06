@@ -1,40 +1,38 @@
-import { createSlice } from '@reduxjs/toolkit';
-
+// redux/reducers/gameReducer.js
 const initialState = {
     points: 5000,
     betAmount: 100,
-    betType: '7',
+    betType: '7 up',
     dice1: null,
     dice2: null,
-    result: '',
+    result: null,
     loading: false,
 };
 
-const gameSlice = createSlice({
-    name: 'game',
-    initialState,
-    reducers: {
-        setBetAmount(state, action) {
-            state.betAmount = action.payload;
-        },
-        setBetType(state, action) {
-            state.betType = action.payload;
-        },
-        setDiceResult(state, action) {
-            state.dice1 = action.payload.dice1;
-            state.dice2 = action.payload.dice2;
-        },
-        setResult(state, action) {
-            state.result = action.payload;
-        },
-        setPoints(state, action) {
-            state.points = action.payload;
-        },
-        setLoading(state, action) {
-            state.loading = action.payload;
-        },
-    },
-});
+const gameReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case 'SET_BET_AMOUNT':
+            return { ...state, betAmount: action.payload };
+        case 'SET_BET_TYPE':
+            return { ...state, betType: action.payload };
+        case 'SET_DICE_RESULT':
+            return { ...state, dice1: action.payload.dice1, dice2: action.payload.dice2 };
+        case 'SET_RESULT':
+            return { ...state, result: action.payload };
+        case 'SET_POINTS':
+            return { ...state, points: action.payload };
+        case 'SET_LOADING':
+            return { ...state, loading: action.payload };
+        default:
+            return state;
+    }
+};
 
-export const { setBetAmount, setBetType, setDiceResult, setResult, setPoints, setLoading } = gameSlice.actions;
-export default gameSlice.reducer;
+export const setBetAmount = (amount) => ({ type: 'SET_BET_AMOUNT', payload: amount });
+export const setBetType = (type) => ({ type: 'SET_BET_TYPE', payload: type });
+export const setDiceResult = (result) => ({ type: 'SET_DICE_RESULT', payload: result });
+export const setResult = (result) => ({ type: 'SET_RESULT', payload: result });
+export const setPoints = (points) => ({ type: 'SET_POINTS', payload: points });
+export const setLoading = (loading) => ({ type: 'SET_LOADING', payload: loading });
+
+export default gameReducer;

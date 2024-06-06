@@ -1,0 +1,57 @@
+7 UP 7 DOWN Game
+Create a 7 up 7 down game using React and Nodejs.
+
+
+This is a dice game where the host throws the dice and the players bet on 3 numbers - numbers below 7, 7 and numbers above 7.
+ On numbers below and above 7 the players get double their stake and on 7 the players get 5 times their stake.
+
+
+Create a simple React based UI for mobile viewport. No need for a responsive desktop or tablet viewport view. 
+(Needs to adjust for various mobile device viewports)
+
+
+Specifications for the game
+Player starts with 5000 points
+He can bet on 7 up, 7 or 7 down
+He can place a bet of the following amounts: 100, 200, 500
+Numbers should be generated via API
+Generated number to show up on UI
+Winning/Losing amount calculation should happen via API
+After a result, the current points of the user to be updated via API
+
+
+Must Include
+Frontend
+React
+Material UI
+Axios
+
+Backend
+Node
+Express
+REST API - POST
+JSON request and response
+
+
+Bonus additions
+Redux
+React router
+Animations
+Loaders
+JWT authentication
+Best looking UI
+
+	
+
+General Flow of the application to look like:
+Page loads, Player has 5000 points
+Player selects a bet amount out of 100, 200, 500
+Player chooses 1 of the 3 options – 7 up, 7 Down, Lucky 7.
+When confident, player presses the roll die button
+API call is made to provide a result for the dice roll. (2 dice)
+Show the result of both the dice on the UI
+Make an API call to check whether the player wins or looses based on the dice roll generated and the option selected
+Show the result on the UI
+Make an API call, to get the new amount of the user, based on the bet and result
+Update the amount on the UI.
+The game continues

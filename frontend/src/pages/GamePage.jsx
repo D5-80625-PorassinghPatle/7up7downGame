@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Container, Typography, Paper, Button } from '@mui/material';
 import BetOptions from '../components/BetOptions';
 import BetAmount from '../components/BetAmount';
 import DiceResult from '../components/DiceResult';
@@ -37,23 +36,39 @@ const GamePage = () => {
     };
 
     return (
-        <div className='game-container1'>
-        <Container maxWidth="sm" sx={{ py: 3 }}>
-            <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
+        <div style={styles.container}>
+            <div style={styles.gameBox}>
                 <PlayerPoints points={points} />
                 <BetOptions betType={betType} setBetType={(value) => dispatch(setBetType(value))} />
                 <BetAmount betAmount={betAmount} setBetAmount={(value) => dispatch(setBetAmount(value))} />
                 <RollDiceButton onRoll={handleRoll} />
                 <DiceResult dice1={dice1} dice2={dice2} loading={loading} />
-                {result && (
-                    <Typography variant="h6" sx={{ mt: 2 }}>
-                        {result === 'win' ? 'You Win!' : 'You Lose!'}
-                    </Typography>
-                )}
-            </Paper>
-        </Container>
+                {result && <h2>{result === 'win' ? 'You Win!' : 'You Lose!'}</h2>}
+            </div>
         </div>
     );
+};
+
+const styles = {
+    container: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        backgroundColor: '#f8f9fa',
+        backgroundImage: 'url(https://i.pinimg.com/564x/8f/d4/a4/8fd4a4d12c6f10567f8422b1c964ee13.jpg)', // Change this to the path of your background image
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+    },
+    gameBox: {
+        padding: '20px',
+        borderRadius: '10px',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background
+        boxShadow: '0px 0px 10px rgba(0,0,0,0.1)',
+        textAlign: 'center',
+        maxWidth: '400px',
+        width: '100%',
+    },
 };
 
 export default GamePage;
